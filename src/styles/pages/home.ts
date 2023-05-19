@@ -38,7 +38,7 @@ export const Product = styled("a", {
     padding: "2rem",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     
     backgroundColor: "rgba(0,0,0, 0.6)",
 
@@ -53,7 +53,7 @@ export const Product = styled("a", {
     span:{
         fontSize: '$xl',
         fontWeight: 'bold',
-        color: '$gray300',
+        color: '$green300',
     }
 
 
