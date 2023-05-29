@@ -10,14 +10,15 @@ export const HomeContainer = styled("main", {
   minHeight: 656,
 });
 
-export const Product = styled("a", {
+export const Product = styled("div", {
   overflow: 'hidden',
-  
+  textDecoration: 'node',
   background: "linear-gradient(180deg, #1EA483 0%, #7465D4 100%)",
   borderRadius: 8,
   // padding: "0.25rem",
   cursor: "pointer",
   position: "relative",
+  
 
   display: "flex",
   alignItems: "center",
@@ -47,7 +48,8 @@ export const Product = styled("a", {
     transition: "all 0.2s ease-in-out",    
 
     strong:{
-        fontSize: '$lg'
+        fontSize: '$lg',
+        color: '$gray100',
     },
 
     span:{
