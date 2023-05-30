@@ -1,6 +1,6 @@
 import { HomeContainer, Product } from "@/styles/pages/home";
 import Image from "next/image";
-
+import Head from "next/head";
 import { stripe } from "@/lib/stripe";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -15,6 +15,7 @@ interface HomeProps {
     description: string;
     imageUrl: string;
     price: string;
+    priceId: string
   }[];
 }
 
@@ -27,9 +28,12 @@ export default function Home({ products }: HomeProps) {
   });
 
   return (
+    <>
+    <Head><title>Home | Ignite Shop</title></Head>
     <HomeContainer ref={sliderRef} className="keen-slider">
+      
       {products.map((product) => (
-        <Link href={`/products/${product.id}`} key={product.id}>
+        <Link href={`/products/${product.id}`} key={product.id} prefetch={false}>
           <Product className="keen-slider__slide">
             <Image src={product.imageUrl} width={520} height={480} alt="" />
             <footer>
@@ -40,6 +44,7 @@ export default function Home({ products }: HomeProps) {
         </Link>
       ))}
     </HomeContainer>
+    </>
   );
 }
 
@@ -60,6 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
         style: "currency",
         currency: "BRL",
       }).format((price.unit_amount ? price.unit_amount : 0) / 100),
+      priceId: price.id,
     };
   });
 
