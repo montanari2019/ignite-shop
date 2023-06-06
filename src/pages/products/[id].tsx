@@ -62,7 +62,7 @@ export default function Product({ product }: ProductProps) {
       </ImageContainer>
 
       <ProductDetails>
-        <h1>{product.defaultPriceId}</h1>
+        <h1>{product.name}</h1>
         <span>{product.price}</span>
 
         <p>{product.description}</p>
