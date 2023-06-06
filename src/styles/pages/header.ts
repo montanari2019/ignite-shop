@@ -9,7 +9,7 @@ export const Header = styled("header", {
   justifyContent: "space-between",
 });
 
-export const LogoCarrinho = styled("div", {
+export const LogoCarrinho = styled("button", {
   width: "3rem",
   height: "3rem",
   background: "$gray800",
@@ -21,6 +21,7 @@ export const LogoCarrinho = styled("div", {
   alignItems: 'center',
 
   cursor: 'pointer',
+  border: 'none',
 
   
 

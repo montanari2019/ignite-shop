@@ -30,6 +30,8 @@ export const Product = styled("div", {
     objectFit: "cover",
   },
 
+
+
   footer: {
     position: "absolute",
     bottom: "0.25rem",
@@ -69,4 +71,49 @@ export const Product = styled("div", {
         opacity: 1,
     }
   },
+});
+
+export const FooterHome = styled('footer',{
+  display:  "flex",
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+
+  div:{
+    display: 'flex',
+    flexDirection:'column',
+
+    strong:{
+      fontSize: '1.125rem',
+
+    },
+    
+    span:{
+      fontSize: '1.5rem',
+    }
+  }
+
+})
+
+export const LogoCarrinho = styled("button", {
+  width: "3rem",
+  height: "3rem",
+  background: "$green300",
+  
+  borderRadius: 6,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  
+  cursor: 'pointer',
+  border: 'none',
+  
+  img:{
+    // background: '$white',
+    fill: 'CurrentColor',
+    color: '$white',
+    
+  }
+
+  
 });

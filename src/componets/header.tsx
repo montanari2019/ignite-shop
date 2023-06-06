@@ -7,15 +7,21 @@ import {
   Header,
   LogoCarrinho,
 } from "@/styles/pages/header";
+import { useState } from "react";
 
 export default function HeaderComponent() {
+
+  const [item, setItem] = useState(0)
   return (
     <Header className="header__logo">
       <Image src={logo} alt="logo" />
       <CardAjust>
-        <BageInfo>1</BageInfo>
+        {
+          item > 0 ? <BageInfo>1</BageInfo> : <></>
+        }
+        
 
-        <LogoCarrinho>
+        <LogoCarrinho onClick={(e) => setItem(item + 1)}>
           <Image src={logoCarrinho} alt="" width={24} height={24} />
         </LogoCarrinho>
       </CardAjust>
