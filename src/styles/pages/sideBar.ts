@@ -31,6 +31,9 @@ export const ClosedIcon = styled('div',{
 
 export const SidbarBody = styled('div',{
     marginTop: '1.5rem',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
 
     strong:{
         fontSize: "1.25rem",
@@ -86,6 +89,7 @@ export const SidbarItem = styled('div',{
 
 
 
+
 export const ImageItemSideBar = styled('div', {
     width: '6.25rem',
     height: '6.25rem',
@@ -93,3 +97,7 @@ export const ImageItemSideBar = styled('div', {
     borderRadius: 10
 })
 
+
+export const Footer = styled('footer', {
+    margin:'auto 0'
+})

@@ -1,5 +1,6 @@
 import {
     ClosedIcon,
+    Footer,
     ImageItemSideBar,
     SidbarBody,
     SidbarItem,
@@ -21,6 +22,7 @@ export default function SideBarComponent() {
       <SidbarBody>
         <strong>Sacola de compras</strong>
 
+        <div>
         <SidbarItem>
           <ImageItemSideBar>
             <Image src={camiseta02} width={100} height={100} alt="" />
@@ -55,7 +57,18 @@ export default function SideBarComponent() {
             <strong>R$ 79,90</strong>
             <button>Remover</button>
           </div>
-        </SidbarItem>
+        </SidbarItem>   
+        </div>
+
+       
+
+        <Footer>
+            <p>Quantidade <span>3 itens</span></p>
+
+            <strong>Valor total <span>R$ 270,00</span></strong>
+
+            <button>Finalizar compra</button>
+        </Footer>
       </SidbarBody>
     </SideBarContainer>
   );
