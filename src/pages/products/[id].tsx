@@ -1,3 +1,4 @@
+import SideBarComponent from "@/componets/sideBar";
 import { stripe } from "@/lib/stripe";
 import {
   ImageContainer,
@@ -55,6 +56,7 @@ export default function Product({ product }: ProductProps) {
   }
   return (
     <>
+    <SideBarComponent/>
     <Head><title>{product.name} Ignite Shop</title></Head>
     <ProductContainer>
       <ImageContainer>
