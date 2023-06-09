@@ -28,6 +28,7 @@ export default function Product({ product }: ProductProps) {
   const { isFallback } = useRouter();
 
   const [sessionRedirect, setSessionRedirect] = useState(false);
+  const [statusSidebar, setStatusSideBar] = useState(false)
 
   async function handleChekout(){
     try{
@@ -54,10 +55,13 @@ export default function Product({ product }: ProductProps) {
     console.log("IsFALLBAK")
     return <h1>...Loading</h1>;
   }
+
+  
   return (
     <>
-    <SideBarComponent/>
     <Head><title>{product.name} Ignite Shop</title></Head>
+
+
     <ProductContainer>
       <ImageContainer>
         <Image src={product.imageUrl} alt="" width={520} height={480} />

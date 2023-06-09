@@ -1,18 +1,21 @@
 import { styled } from "..";
 
 export const SideBarContainer = styled('div',{
+    zIndex:'1',
     padding: '1.75rem 3rem',
+
+    
+    position: "absolute",
     width: '30rem',
+    left: '-30rem',
     height: '100vh',
     background: '$gray800',
-    position: 'absolute',
-    right:0,
+    transition: "transform 0.3s ease-in-out",
     
     display: 'flex',
     
     flexDirection: 'column',
-    // alignItems: "end"
-    // justifyContent: 'space-between'
+
 
 })
 
@@ -121,6 +124,7 @@ export const Footer = styled('footer', {
     button:{
         width: '100%',
         height: '4.31rem',
+        marginTop: '3.45rem',
 
         border: 'none',
         borderRadius: 8,

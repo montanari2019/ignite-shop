@@ -10,13 +10,28 @@ import Image from "next/image";
 import closedIcon from "../assets/closed-icon.svg";
 
 import camiseta02 from "../assets/camiseta/camiseta2.png";
+import useCartContext from "@/context/cartContext/contextCart";
+
 
 export default function SideBarComponent() {
+
+
+
+  const { statusSideBar, activeSideBar } = useCartContext()
+
+
+
+  function handleSideBar(){
+    activeSideBar()
+  }
+
+
   return (
-    <SideBarContainer>
+    <SideBarContainer  css={statusSideBar ? {transform: 'translateX(30rem)'} : {}}>
+
       <ClosedIcon>
         <span></span>
-        <Image src={closedIcon} alt="" width={24} height={24} />
+        <Image src={closedIcon} alt="" width={24} height={24} onClick={handleSideBar}/>
       </ClosedIcon>
 
       <SidbarBody>

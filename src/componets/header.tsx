@@ -8,8 +8,20 @@ import {
   LogoCarrinho,
 } from "@/styles/pages/header";
 import { useState } from "react";
+import useCartContext from "@/context/cartContext/contextCart";
+
 
 export default function HeaderComponent() {
+
+  const { activeSideBar } = useCartContext()
+
+ 
+
+  function handleClick(){
+
+    activeSideBar()
+    setItem((state) => state + 1)
+  }
 
   const [item, setItem] = useState(0)
   return (
@@ -21,7 +33,7 @@ export default function HeaderComponent() {
         }
         
 
-        <LogoCarrinho onClick={(e) => setItem(item + 1)}>
+        <LogoCarrinho onClick={handleClick}>
           <Image src={logoCarrinho} alt="" width={24} height={24} />
         </LogoCarrinho>
       </CardAjust>
