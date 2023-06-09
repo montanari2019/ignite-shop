@@ -32,6 +32,7 @@ export const ClosedIcon = styled('div',{
 export const SidbarBody = styled('div',{
     marginTop: '1.5rem',
     display: 'flex',
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
 
