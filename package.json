@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "@stitches/react": "^1.2.8",
     "@types/node": "20.1.7",
     "@types/react": "18.2.6",
@@ -18,7 +19,12 @@
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "^8.0.7",
+    "redux-persist": "^6.0.0",
     "stripe": "^12.5.0",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/redux-persist": "^4.3.1"
   }
 }

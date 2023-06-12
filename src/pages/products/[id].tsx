@@ -28,7 +28,6 @@ export default function Product({ product }: ProductProps) {
   const { isFallback } = useRouter();
 
   const [sessionRedirect, setSessionRedirect] = useState(false);
-  const [statusSidebar, setStatusSideBar] = useState(false)
 
   async function handleChekout(){
     try{
