@@ -9,9 +9,11 @@ import {
 } from "@/styles/pages/header";
 import { useState } from "react";
 import useCartContext from "@/context/cartContext/contextCart";
+import { useReduxSelector } from "@/redux/store/hoook";
 
 
 export default function HeaderComponent() {
+  const { products } = useReduxSelector((state) => state.shopLoad)
 
   const { activeSideBar } = useCartContext()
 
@@ -20,16 +22,15 @@ export default function HeaderComponent() {
   function handleClick(){
 
     activeSideBar()
-    setItem((state) => state + 1)
+    
   }
 
-  const [item, setItem] = useState(0)
   return (
     <Header className="header__logo">
       <Image src={logo} alt="logo" />
       <CardAjust>
         {
-          item > 0 ? <BageInfo>1</BageInfo> : <></>
+          products.length > 0 ? <BageInfo>{products.length}</BageInfo> : <></>
         }
         
 

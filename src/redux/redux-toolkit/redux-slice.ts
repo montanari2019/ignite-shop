@@ -6,13 +6,11 @@ interface ProductProps {
   name: string;
   description: string;
   imageUrl: string;
-  price: string;
+  price: number;
   defaultPriceId: string;
 }
 
-interface ProductIdRemoveProps {
-    id: string;
-}
+
 
 
 interface initialStateProps {
@@ -32,8 +30,8 @@ export const shopSlice = createSlice({
             state.products.push(action.payload)
         },
 
-        removeProduct:(state, action:PayloadAction<ProductIdRemoveProps>)=>{
-            const newArrayProducts = state.products.filter((elemtent)=> elemtent.id !== action.payload.id)
+        removeProduct:(state, action:PayloadAction<string>)=>{
+            const newArrayProducts = state.products.filter((elemtent)=> elemtent.id !== action.payload)
             state.products = newArrayProducts
         }
 

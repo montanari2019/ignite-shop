@@ -5,19 +5,39 @@ import {
   SidbarBody,
   SidbarItem,
   SideBarContainer,
+  SideBarItens,
 } from "@/styles/pages/sideBar";
 import Image from "next/image";
 import closedIcon from "../assets/closed-icon.svg";
 
-import camiseta02 from "../assets/camiseta/camiseta2.png";
+import {  removeProduct } from "../redux/redux-toolkit/redux-slice"
+
 import useCartContext from "@/context/cartContext/contextCart";
+import { useReduxSelector } from "@/redux/store/hoook";
+import { priceFromatter } from "@/utils/formatter";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import SnackBarMUI from "./snakebar";
 
 
 export default function SideBarComponent() {
 
+  const { products } = useReduxSelector((state) => state.shopLoad)
+  const [snackBarStatus, setSnackBarStatus] = useState(false)
+
+  const dispatch = useDispatch()
 
 
   const { statusSideBar, activeSideBar } = useCartContext()
+
+  function handleremoveProduct(id:string){
+    dispatch(removeProduct(id))
+    setSnackBarStatus(true)
+
+    setTimeout(() => {
+      setSnackBarStatus(false)
+    }, 3000);
+  }
 
 
 
@@ -25,9 +45,12 @@ export default function SideBarComponent() {
     activeSideBar()
   }
 
+  const totatilzer = products.length > 0 ? products.reduce((acumulador, element)=> acumulador + element.price, 0 ) : 0
+
 
   return (
     <SideBarContainer  css={statusSideBar ? {transform: 'translateX(30rem)'} : {}}>
+       <SnackBarMUI color={"#00b37e"} message={"Item removido do carrinho"} open={snackBarStatus} onClose={() => setSnackBarStatus(false) }/>
 
       <ClosedIcon>
         <span></span>
@@ -35,55 +58,41 @@ export default function SideBarComponent() {
       </ClosedIcon>
 
       <SidbarBody>
-        <div>
+        <SideBarItens>
           <strong>Sacola de compras</strong>
 
           <div>
-            <SidbarItem>
-              <ImageItemSideBar>
-                <Image src={camiseta02} width={100} height={100} alt="" />
-              </ImageItemSideBar>
 
-              <div>
-                <p>Camiseta Beyond the Limits</p>
-                <strong>R$ 79,90</strong>
-                <button>Remover</button>
-              </div>
-            </SidbarItem>
+            {
+              products.map((index)=>{
+                console.log(`precoo: ${index.price}`)
+                return (
+                  <SidbarItem>
+                  <ImageItemSideBar>
+                    <Image src={index.imageUrl} width={100} height={100} alt="" />
+                  </ImageItemSideBar>
+    
+                  <div>
+                    <p>{index.name}</p>
+                    <strong>{priceFromatter.format(index.price)}</strong>
+                    <button onClick={() => handleremoveProduct(index.id)} >Remover</button>
+                  </div>
+                </SidbarItem>
+                )
+              })
+            }
 
-            <SidbarItem>
-              <ImageItemSideBar>
-                <Image src={camiseta02} width={100} height={100} alt="" />
-              </ImageItemSideBar>
-
-              <div>
-                <p>Camiseta Beyond the Limits</p>
-                <strong>R$ 79,90</strong>
-                <button>Remover</button>
-              </div>
-            </SidbarItem>
-
-            <SidbarItem>
-              <ImageItemSideBar>
-                <Image src={camiseta02} width={100} height={100} alt="" />
-              </ImageItemSideBar>
-
-              <div>
-                <p>Camiseta Beyond the Limits</p>
-                <strong>R$ 79,90</strong>
-                <button>Remover</button>
-              </div>
-            </SidbarItem>
+          
           </div>
-        </div>
+        </SideBarItens>
 
         <Footer>
           <p>
-            Quantidade <span>3 itens</span>
+            Quantidade <span>{products.length} itens</span>
           </p>
 
           <strong>
-            Valor total <span>R$ 270,00</span>
+            Valor total <span>{priceFromatter.format(totatilzer)}</span>
           </strong>
 
           <button>Finalizar compra</button>

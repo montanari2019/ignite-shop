@@ -1,5 +1,6 @@
-import SideBarComponent from "@/componets/sideBar";
+
 import { stripe } from "@/lib/stripe";
+import { useReduxSelector } from "@/redux/store/hoook";
 import {
   ImageContainer,
   ProductContainer,
@@ -11,7 +12,12 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import Stripe from "stripe";
+
+import { pushProduct } from "../../redux/redux-toolkit/redux-slice"
+import SnackBarMUI from "@/componets/snakebar";
+import { priceFromatter } from "@/utils/formatter";
 
 interface ProductProps {
   product: {
@@ -19,15 +25,21 @@ interface ProductProps {
     name: string;
     description: string;
     imageUrl: string;
-    price: string;
+    price: number;
     defaultPriceId: string;
   };
 }
 
 export default function Product({ product }: ProductProps) {
+
+  const { products } = useReduxSelector((state) => state.shopLoad)
   const { isFallback } = useRouter();
+  const dispatch = useDispatch()
 
   const [sessionRedirect, setSessionRedirect] = useState(false);
+
+  const [snackBarStatus, setSnackBarStatus] = useState(false)
+  
 
   async function handleChekout(){
     try{
@@ -50,6 +62,16 @@ export default function Product({ product }: ProductProps) {
     console.log(product.defaultPriceId)
   }
 
+  function addProduct(){
+    dispatch(pushProduct(product))
+    setSnackBarStatus(true)
+
+    setTimeout(()=>{
+      	setSnackBarStatus(false)
+    }, 3000)
+
+  }
+
   if (isFallback) {
     console.log("IsFALLBAK")
     return <h1>...Loading</h1>;
@@ -58,6 +80,7 @@ export default function Product({ product }: ProductProps) {
   
   return (
     <>
+     <SnackBarMUI color={"#00b37e"} message={"Item adicionado ao carrinho"} open={snackBarStatus} onClose={() => setSnackBarStatus(false) }/>
     <Head><title>{product.name} Ignite Shop</title></Head>
 
 
@@ -68,11 +91,11 @@ export default function Product({ product }: ProductProps) {
 
       <ProductDetails>
         <h1>{product.name}</h1>
-        <span>{product.price}</span>
+        <span>{priceFromatter.format(product.price)}</span>
 
         <p>{product.description}</p>
 
-        <button disabled={sessionRedirect} onClick={handleChekout} type="button">Comprar agora</button>
+        <button disabled={sessionRedirect} onClick={addProduct} type="button">Comprar agora</button>
       </ProductDetails>
     </ProductContainer>
     </>
@@ -104,10 +127,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         name: product.name,
         description: product.description,
         imageUrl: product.images[0],
-        price: new Intl.NumberFormat("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        }).format((price.unit_amount ? price.unit_amount : 0) / 100),
+        price: ((price.unit_amount ? price.unit_amount : 0) / 100),
         defaultPriceId: price.id
       },
     },
