@@ -18,12 +18,14 @@ import { priceFromatter } from "@/utils/formatter";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import SnackBarMUI from "./snakebar";
+import axios from "axios";
 
 
 export default function SideBarComponent() {
 
   const { products } = useReduxSelector((state) => state.shopLoad)
   const [snackBarStatus, setSnackBarStatus] = useState(false)
+  const [sessionRedirect, setSessionRedirect] = useState(false);
 
   const dispatch = useDispatch()
 
@@ -37,6 +39,27 @@ export default function SideBarComponent() {
     setTimeout(() => {
       setSnackBarStatus(false)
     }, 3000);
+  }
+
+  async function handleNewChekout(){
+    try{
+      
+      setSessionRedirect(true)
+      const response = await axios.post('/api/multicheckout', {
+        priceIditens: [...products]
+      })
+
+      console.log("Url de redirecionamento",response.data)
+      
+      const { checkoutSession } = response.data
+      
+      window.location.href = checkoutSession 
+      
+    }catch(err){
+      setSessionRedirect(false)
+      // alert("Falha ao redirecionar ao chekout");
+    }
+    
   }
 
 
@@ -65,7 +88,7 @@ export default function SideBarComponent() {
 
             {
               products.map((index)=>{
-                console.log(`precoo: ${index.price}`)
+               
                 return (
                   <SidbarItem>
                   <ImageItemSideBar>
@@ -74,6 +97,7 @@ export default function SideBarComponent() {
     
                   <div>
                     <p>{index.name}</p>
+                    <p style={{fontSize: '0.85rem'}}>Quantidade: {index.quantity}</p>
                     <strong>{priceFromatter.format(index.price)}</strong>
                     <button onClick={() => handleremoveProduct(index.id)} >Remover</button>
                   </div>
@@ -86,6 +110,13 @@ export default function SideBarComponent() {
           </div>
         </SideBarItens>
 
+        <div>
+          {
+          
+          products.length === 0 ? <><h3 style={{textAlign: 'center'}}>Carrinho está vazio <br></br> Por favor escolha algum item</h3></> : <></>
+          }
+        </div>
+
         <Footer>
           <p>
             Quantidade <span>{products.length} itens</span>
@@ -95,7 +126,7 @@ export default function SideBarComponent() {
             Valor total <span>{priceFromatter.format(totatilzer)}</span>
           </strong>
 
-          <button>Finalizar compra</button>
+          <button disabled={products.length === 0} onClick={handleNewChekout}>Finalizar compra</button>
         </Footer>
       </SidbarBody>
     </SideBarContainer>

@@ -41,7 +41,7 @@ export const SidbarBody = styled("div", {
 
 
 export const SideBarItens =styled('div', {
-  overflowY: "scroll",
+  
   
 })
 
@@ -101,32 +101,36 @@ export const Footer = styled("footer", {
     justifyContent: "space-between",
     margin: "0.5rem 0",
   },
-
+  
   strong: {
     fontSize: "1.5rem",
     display: "flex",
     justifyContent: "space-between",
     margin: "0.5rem 0",
   },
-
+  
   button: {
     width: "100%",
     height: "4.31rem",
     marginTop: "3.45rem",
-
+    
     border: "none",
     borderRadius: 8,
     color: "$white",
     fontWeight: "bold",
     fontSize: "1.125rem",
     cursor: "pointer",
-
+    
     background: "$green500",
     transition: "all 0.4s",
-
+    
     "&:hover": {
       background: "$green300",
       transition: "all 0.4s",
     },
+    "&:disabled":{
+      opacity: 0.5,
+      cursor: 'not-allowed',
+    }
   },
 });

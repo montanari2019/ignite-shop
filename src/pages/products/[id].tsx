@@ -27,6 +27,7 @@ interface ProductProps {
     imageUrl: string;
     price: number;
     defaultPriceId: string;
+    quantity: number
   };
 }
 
@@ -61,6 +62,9 @@ export default function Product({ product }: ProductProps) {
     }
     console.log(product.defaultPriceId)
   }
+
+
+  
 
   function addProduct(){
     dispatch(pushProduct(product))
@@ -128,7 +132,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         description: product.description,
         imageUrl: product.images[0],
         price: ((price.unit_amount ? price.unit_amount : 0) / 100),
-        defaultPriceId: price.id
+        defaultPriceId: price.id,
+        quantity: 1
       },
     },
     revalidate: 60 * 60 * 1, // 1 hora

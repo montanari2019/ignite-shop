@@ -17,7 +17,7 @@ export default function HeaderComponent() {
 
   const { activeSideBar } = useCartContext()
 
- 
+  const totatilzerItens = products.length > 0 ? products.reduce((acumulador, element)=> acumulador + element.quantity, 0 ) : 0
 
   function handleClick(){
 
@@ -30,7 +30,7 @@ export default function HeaderComponent() {
       <Image src={logo} alt="logo" />
       <CardAjust>
         {
-          products.length > 0 ? <BageInfo>{products.length}</BageInfo> : <></>
+          products.length > 0 ? <BageInfo>{totatilzerItens}</BageInfo> : <></>
         }
         
 
