@@ -8,51 +8,65 @@ export const SuccessContainer = styled("main", {
   margin: "0 auto",
   height: 656,
 
-  h1:{
-    fontSize: '2rem',
+  h1: {
+    fontSize: "2rem",
     color: "$gray100",
-
   },
 
-  p:{
-    fontSize: '1.5rem',
+  p: {
+    fontSize: "1.5rem",
     color: "$gray300",
     maxWidth: 560,
-    textAlign: 'center',
-    marginTop: '2rem',
-    lineHeight: '1.6',
+    textAlign: "center",
+    marginTop: "2rem",
+    lineHeight: "1.6",
   },
 
-  a:{
-    display: 'block',
-    marginTop: '5rem',
+  a: {
+    display: "block",
+    marginTop: "5rem",
     color: "$green500",
-    fontSize: '1.5rem',
-    textDecoration: 'none',
-    fontWeight: 'bold',
-  
+    fontSize: "1.5rem",
+    textDecoration: "none",
+    fontWeight: "bold",
 
-    '&:hover':{
-        color: "$green300",
-    }
-  }
+    "&:hover": {
+      color: "$green300",
+    },
+  },
+});
 
+export const ImageContainerAbsolute = styled("div", {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export const ImageContainer = styled("div", {
-  width: "100%",
-  maxWidth: 130,
-  height: 145,
+
+  width: 140,
+  height: 140,
+  marginRight: -52,
+
   background: "linear-gradient(180deg, #1EA483 0%, #7465D4 100%)",
-  borderRadius: 8,
+
   padding: "0.25rem",
-  marginTop: '4rem',
+  marginTop: "4rem",
+  borderRadius: "1000px",
 
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
 
+  
+boxShadow: '0px 0px 30px 0px rgba(0, 0, 0, 0.80)',
+
   img: {
-    objectFit: "cover",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    flexShrink: 0,
+    objectFit: 'cover'
   },
 });

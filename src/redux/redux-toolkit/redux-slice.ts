@@ -91,6 +91,10 @@ export const shopSlice = createSlice({
             
             state.products = newArray
            
+        },
+
+        deleteChat:(state) =>{
+            state.products = []
         }
 
 
@@ -98,6 +102,6 @@ export const shopSlice = createSlice({
 })
 
 
-export const { pushProduct, removeProduct } = shopSlice.actions
+export const { pushProduct, removeProduct,deleteChat } = shopSlice.actions
 
 export const ShopReducer = shopSlice.reducer

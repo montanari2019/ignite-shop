@@ -1,9 +1,11 @@
 import { stripe } from "@/lib/stripe";
-import { ImageContainer, SuccessContainer } from "@/styles/pages/sucess";
+import { deleteChat } from "@/redux/redux-toolkit/redux-slice";
+import { ImageContainer, ImageContainerAbsolute, SuccessContainer } from "@/styles/pages/sucess";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 import Stripe from "stripe";
 
 interface SuccesProps {
@@ -17,7 +19,14 @@ interface SuccesProps {
 }
 
 export default function Success({ customerName, product, quantity }: SuccesProps) {
-  console.log('mapeamento',product)
+
+  const dispatch = useDispatch()
+
+  if(product.length > 0){
+    dispatch(deleteChat())
+
+  }
+
   return (
     <>
       <Head>
@@ -28,7 +37,9 @@ export default function Success({ customerName, product, quantity }: SuccesProps
       <SuccessContainer>
         <h1>Compra Efetuada !</h1>
 
-       {/* {
+      
+        <ImageContainerAbsolute>
+       {
         product.map((index)=>{
             return (
                 <ImageContainer key={index.id}>
@@ -36,10 +47,12 @@ export default function Success({ customerName, product, quantity }: SuccesProps
               </ImageContainer>
             )
         })
-       } */}
+       }
+        </ImageContainerAbsolute>
+
 
         <p>
-        Uhuul <strong>{customerName}</strong>, sua compra de {quantity} camisetas já está a caminho da sua casa. 
+        Uhuul <strong style={{textTransform: 'capitalize'}}>{customerName}</strong>, sua compra de {quantity} camisetas já está a caminho da sua casa. 
           
         </p>
 
@@ -63,16 +76,21 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const request = await stripe.checkout.sessions.retrieve(sessionId, {
     expand: ["line_items", "line_items.data.price.product"],
   });
+  var customerName = request.customer_details?.name
 
-  const customerName = request.customer_details?.name;
-
+  const firstName = request.customer_details?.name?.split(' ')[0]
+  const lastName = request.customer_details?.name?.split(' ')[request.customer_details?.name?.split(' ').length - 1]
   const newProduct = request.line_items?.data as Stripe.LineItem[];
 
-  const produtcReturn: any[] = newProduct.map((index) => {
+  customerName = `${firstName?.toLocaleLowerCase()} ${lastName?.toLocaleLowerCase()}` 
+
+  const Newproduct: any[] = newProduct.map((index) => {
     return {
       product: index.price?.product,
     };
   })
+
+  const product = Newproduct.map(item => item.product)
 
 
   const quantity =
@@ -84,13 +102,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         )
       : 0;
 
-  console.log(produtcReturn);
 
   return {
     props: {
       customerName,
       quantity,
-      produtcReturn,
+      product,
     },
   };
 };
